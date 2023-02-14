@@ -1,13 +1,16 @@
+import express from "express";
 
-exports.default = (app) => {
-    app.route('/')
-        .get(function(req, res) {
-            res.render('index', {
-                title: 'Express Login'
-            });
-        })
-        .post(function(req, res) {
-            res.send('Add a book');
-        })
-}
+const router = express.Router();
+
+router.get(function(req, res) {
+    res.render('index', {
+        title: 'Express Login'
+    });
+})
+
+router.post(function(req, res) {
+    res.send('Add a book');
+})
+
+export default router;
 
