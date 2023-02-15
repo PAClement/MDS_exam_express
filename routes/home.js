@@ -1,16 +1,16 @@
 import express from "express";
 
-const router = express.Router();
+const homeRouter = express.Router();
 
-router.get(function(req, res) {
+homeRouter.get(function(req, res) {
     res.render('index', {
         title: 'Express Login'
     });
 })
 
-router.post(function(req, res) {
+homeRouter.post(function(req, res) {
     res.send('Add a book');
 })
 
-export default router;
+export default homeRouter;
 
