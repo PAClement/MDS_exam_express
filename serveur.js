@@ -17,6 +17,13 @@ app.use(express.static(__dirname + 'public'))
 
 app.use(homeRouter);
 
+//404 route
+app.get('*', function(req, res){
+    res.render('404', {
+        title: 'Page non trouvée :('
+    });
+});
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })

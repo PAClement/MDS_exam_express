@@ -3,8 +3,8 @@ import express from "express";
 const homeRouter = express.Router();
 
 homeRouter.get("/",function(req, res) {
-    res.render('index', {
-        title: 'Express Login'
+    res.render('home', {
+        title: 'Bienvenue !'
     });
 })
 
