@@ -4,12 +4,29 @@
 <body class="container">
 <%- include('includes/_header.ejs');%>
 
+<div class="alert alert-danger mt-5" role="alert">
+    Veuillez respecter les régles du chat :
+    <ul class="fw-bold">
+        <li>Pas d'insulte</li>
+        <li>Pas de flood</li>
+        <li>Pas d'URL</li>
+    </ul>
+    Sous peine de ne plus pouvoir chatez
+</div>
+<h2 class="text-white">Chatez !</h2>
 <section class="chat d-flex justify-content-between gap-2">
-    <div class="w-75 bg-white">
-        chat
+    <div class="w-75 d-flex flex-column">
+        <div class="bg-white">
+
+        </div>
+        <div class="mt-2">
+            <form class="d-flex justify-content-between gap-2">
+                <input type="text" class="form-control" />
+                <button type="submit" class="btn btn-primary"><i class="fa-sharp fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
     </div>
     <div class="w-25 bg-secondary">
-        list des gens
     </div>
 </section>
 
