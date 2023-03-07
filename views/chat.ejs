@@ -16,12 +16,12 @@
 <h2 class="text-white">Chatez !</h2>
 <section class="chat d-flex justify-content-between gap-2">
     <div class="w-75 d-flex flex-column">
-        <div class="bg-white">
+        <div class="bg-white" id="listMessage">
 
         </div>
         <div class="mt-2">
-            <form class="d-flex justify-content-between gap-2">
-                <input type="text" class="form-control" />
+            <form id="chatForm" class="d-flex justify-content-between gap-2">
+                <input  type="text" id="chatInput" class="form-control" />
                 <button type="submit" class="btn btn-primary"><i class="fa-sharp fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
@@ -36,7 +36,28 @@
 <%- include('includes/_script.ejs');%>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    const socket = io();
+    let socket = io();
+
+    let message = document.querySelector('#listMessage')
+    let form = document.querySelector('#chatForm');
+    let input = document.querySelector('#chatInput');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value) {
+            socket.emit('chat message', input.value);
+            input.value = '';
+        }
+    });
+
+    const receive = (msg)=>{
+
+        let text = `<p>${msg}</p>`
+        message.innerHTML += text;
+    }
+
+    socket.on('chat message', receive)
+
 </script>
 </body>
 </html>

@@ -10,8 +10,15 @@ export default function(httpServer){
         console.log('a user connected');
         socket.on('disconnect', () => {
             console.log('user disconnected');
-        });
+        })
+
+        socket.on('chat message', function(msg){
+            console.log('message recu '+msg)
+            io.emit('chat message', msg);
+        })
+
     });
+
 
     chatRouter.get("/chat", function (req, res) {
 
