@@ -1,14 +1,12 @@
 <!doctype html>
 <html>
-<head>
-    <%- include('includes/_head.ejs');%>
-    <title><%= title %></title>
-</head>
-<body class="bg-dark">
+    <%- include('includes/_head.ejs', title);%>
+<body class="container">
     <%- include('includes/_header.ejs');%>
 
-    <h1 class="text-white">Leplusbeausite</h1>
+    <p class="text-white">Page accueil</p>
 
+    <%- include('includes/_footer.ejs');%>
     <%- include('includes/_script.ejs');%>
 </body>
 </html>

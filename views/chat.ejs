@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<%- include('includes/_head.ejs', title);%>
+<body class="container">
+<%- include('includes/_header.ejs');%>
+
+<section class="chat d-flex justify-content-between gap-2">
+    <div class="w-75 bg-white">
+        chat
+    </div>
+    <div class="w-25 bg-secondary">
+        list des gens
+    </div>
+</section>
+
+
+
+<%- include('includes/_footer.ejs');%>
+<%- include('includes/_script.ejs');%>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+</script>
+</body>
+</html>
