@@ -7,6 +7,7 @@ export default function (httpServer) {
     const io = new Server(httpServer);
 
     let listUser = [];
+    let listMessage = [];
 
     io.on('connection', (socket) => {
         let addedUser = false;
@@ -14,51 +15,50 @@ export default function (httpServer) {
         socket.on('new message', (data) => {
 
             const currentDate = new Date(Date.now()).toLocaleString()
+            let currentMessage = {
+                username: socket.username,
+                message: data,
+                date: currentDate
+            }
 
+            listMessage.push(currentMessage)
             // we tell the client to execute 'new message'
-            socket.broadcast.emit('new message', {
-                username: socket.username,
-                message: data,
-                date: currentDate
-            });
-            socket.emit('new message', {
-                username: socket.username,
-                message: data,
-                date: currentDate
-            });
+            socket.broadcast.emit('new message', currentMessage);
+            socket.emit('new message', currentMessage);
         });
 
         // when the client emits 'add user', this listens and executes
         socket.on('add user', (username) => {
-            console.log(listUser)
+
             let userAlreadyExist = false
             if (listUser.length > 0) {
                 listUser.map(target => {
-                    if(target.toUpperCase() === username.toUpperCase()){
+                    if (target.toUpperCase() === username.toUpperCase()) {
 
                         userAlreadyExist = true;
                     }
                 })
             }
 
-            if(!userAlreadyExist){
+            if (!userAlreadyExist) {
                 if (addedUser) return;
 
                 // we store the username in the socket session for this client
                 socket.username = username;
                 addedUser = true;
                 listUser.push(socket.username);
-
+                console.log(listMessage)
                 socket.emit('login', {
                     username: socket.username,
-                    listUser
+                    listUser,
+                    listMessage,
                 });
                 // echo globally (all clients) that a person has connected
                 socket.broadcast.emit('user joined', {
                     username: socket.username,
                     listUser
                 });
-            }else{
+            } else {
 
                 socket.emit('login', {
                     info: `Désolé ! Le pseudo <span class="fw-bold">${username}</span> est déjà pris !`

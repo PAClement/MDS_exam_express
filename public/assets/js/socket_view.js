@@ -54,7 +54,7 @@ const setMessage = (msg) => {
     let text = "";
     if (msg.username === currentUsername) {
         text = `<div class="d-flex flex-column align-items-end">
-                    <h6>Vous</h6>
+                    <h6><span class="text-danger">${msg.username}</span> <span style="font-size: 10px">(vous)</span></h6>
                     <div class="w-50 bg-secondary rounded">
                         <p class="text-white p-1 m-0">${msg.message}</p>
                     </div>
@@ -72,13 +72,14 @@ const setMessage = (msg) => {
     }
 
     message.innerHTML += text;
+    message.scrollTo(0, message.scrollHeight);
 }
 
 const getUsersList = (userTab) => {
     let buffer = ""
     userTab.map(target => {
 
-        buffer += `<p>${target}</p>`;
+        buffer += `<h6>${target}</h6>`;
     })
     document.querySelector('#listUserContainer').innerHTML = buffer;
     document.querySelector('#totalUser').innerHTML = `${userTab.length} Utilisateur${userTab.length > 1 ? 's connectés' : ' connecté'}`;
@@ -116,6 +117,12 @@ socket.on('login', (data) => {
         totalUser++;
         init()
         getUsersList(data.listUser)
+        if(data.listMessage.length > 0){
+            data.listMessage.map(target =>{
+                setMessage(target)
+            })
+        }
+        message.innerHTML += '<p class="text-secondary text-center">Bienvenue dans la conversation </p>'
     }else{
         const toast = new bootstrap.Toast(toastLiveExample)
         toast.show()
