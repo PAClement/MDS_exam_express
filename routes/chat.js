@@ -56,7 +56,6 @@ export default function (httpServer) {
                 socket.username = username;
                 addedUser = true;
                 listUser.push(socket.username);
-                console.log(listMessage)
                 socket.emit('login', {
                     username: socket.username,
                     listUser,
