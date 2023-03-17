@@ -8,6 +8,7 @@ export default function (httpServer) {
 
     let listUser = [];
     let listMessage = [];
+    let listInsult = ["MERDE", "CONNARD", "ALEXIS", "TRISTAN", "ENFOIRÉ"];
 
     io.on('connection', (socket) => {
         let addedUser = false;
@@ -15,6 +16,14 @@ export default function (httpServer) {
         socket.on('new message', (data) => {
 
             const currentDate = new Date(Date.now()).toLocaleString()
+
+            listInsult.map(target => {
+
+                if (data.toUpperCase().includes(target.toUpperCase())) {
+                    data = "Clément est vraiment le meilleur dev"
+                }
+            })
+
             let currentMessage = {
                 username: socket.username,
                 message: data,
