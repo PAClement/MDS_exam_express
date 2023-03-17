@@ -33,6 +33,6 @@ nav a:hover{
     background: rgba(3,3,3,0.5);
 }
 
-.chat div:first-of-type{
-    height: 30em;
-}
+.gobalContainer{
+     height: 30em;
+ }

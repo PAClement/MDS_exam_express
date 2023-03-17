@@ -1,8 +1,8 @@
 <!doctype html>
 <html>
-<%- include('includes/_head.ejs', title);%>
+<%- include('includes/_head.ejs', title); %>
 <body class="container">
-<%- include('includes/_header.ejs');%>
+<%- include('includes/_header.ejs'); %>
 
 <div class="alert alert-danger mt-5" role="alert">
     Veuillez respecter les régles du chat :
@@ -14,50 +14,48 @@
     Sous peine de ne plus pouvoir chatez
 </div>
 <h2 class="text-white">Chatez !</h2>
-<section class="chat d-flex justify-content-between gap-2">
-    <div class="w-75 d-flex flex-column">
-        <div class="bg-white" id="listMessage">
+<div id="setUsernameContent">
+    <form id="formUsername" method="post" class="m-5 d-flex flex-column align-items-center justify-content-center">
+        <input name="username" id="usernameChat" class="form-control" placeholder="Votre username"/>
+        <button class="btn btn-primary mt-3 w-50 p-3">Save</button>
+    </form>
+
+</div>
+
+<section id="chatContent" class="d-flex justify-content-between gap-2 mb-5">
+    <div class="w-75">
+        <div class="bg-white p-1 gobalContainer" id="listMessage">
 
         </div>
         <div class="mt-2">
             <form id="chatForm" class="d-flex justify-content-between gap-2">
-                <input  type="text" id="chatInput" class="form-control" />
+                <input type="text" id="chatInput" class="form-control"/>
                 <button type="submit" class="btn btn-primary"><i class="fa-sharp fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
     <div class="w-25 bg-secondary">
+        <div class="border-bottom p-1 mb-3">
+            <h4 id="totalUser" class="text-center text-white"></h4>
+        </div>
+        <div id="listUserContainer" class="fs-5 text-dark ps-1 fw-bold"></div>
     </div>
 </section>
 
-
-
-<%- include('includes/_footer.ejs');%>
-<%- include('includes/_script.ejs');%>
+<div class="toast-container top-0 end-0 p-3">
+    <div id="liveToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive"
+         aria-atomic="true">
+        <div class="d-flex">
+            <div id="toastContent" class="toast-body">
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+<%- include('includes/_footer.ejs'); %>
+<%- include('includes/_script.ejs'); %>
 <script src="/socket.io/socket.io.js"></script>
-<script>
-    let socket = io();
-
-    let message = document.querySelector('#listMessage')
-    let form = document.querySelector('#chatForm');
-    let input = document.querySelector('#chatInput');
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (input.value) {
-            socket.emit('chat message', input.value);
-            input.value = '';
-        }
-    });
-
-    const receive = (msg)=>{
-
-        let text = `<p>${msg}</p>`
-        message.innerHTML += text;
-    }
-
-    socket.on('chat message', receive)
-
-</script>
+<script src="/assets/js/socket_view.js"></script>
 </body>
 </html>
