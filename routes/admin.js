@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import planetJSON from "../public/assets/resources/planet.json" assert {type: "json"};
 
 const adminRouter = express.Router();
 const urlencodedParser = bodyParser.urlencoded({extended: false})
@@ -8,19 +9,21 @@ adminRouter.post("/connection", urlencodedParser, function (req, res, next) {
 
     if (req.body.username === "admin" && req.body.password === "admin") {
 
-        console.log("connection")
-
         // store user information in session, typically a user id
         req.session.user = "ok"
 
         // save the session before redirection to ensure page
         // load does not happen before session is saved
         req.session.save(function (err) {
-            res.render('home', {title: 'Bienvenue !', session: req.session.user})
+            res.redirect('/')
         })
     } else {
-        console.log("identifiant not good")
-        res.render('home', {title: 'Bienvenue !', session: false})
+        res.render('home', {
+            title: 'Bienvenue !',
+            session: req.session.user,
+            planets: planetJSON.planets,
+            errorUser:true
+        });
     }
 
 })

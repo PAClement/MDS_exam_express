@@ -13,7 +13,7 @@ homeRouter.get("/", function (req, res) {
     });
 })
 
-homeRouter.get("/:planetID", function (req, res) {
+homeRouter.get("/view/:planetID", function (req, res) {
 
     if (req.params.planetID !== 'favicon.ico') {
 
