@@ -110,7 +110,8 @@ export default function (httpServer) {
     chatRouter.get("/chat", function (req, res) {
 
         res.render('chat', {
-            title: 'Bienvenue sur le chat !'
+            title: 'Bienvenue sur le chat !',
+            session: req.session.user
         });
     })
 

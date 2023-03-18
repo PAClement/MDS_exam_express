@@ -1,12 +1,23 @@
 <!doctype html>
 <html>
-    <%- include('includes/_head.ejs', title);%>
+<%- include('includes/_head.ejs', title); %>
 <body class="container">
-    <%- include('includes/_header.ejs');%>
+<%- include('includes/_header.ejs'); %>
 
-    <p class="text-white">Page accueil</p>
+<div class="d-flex justify-content-evenly flex-wrap gap-3">
+    <% planets.map(planet =>{ %>
+        <div class="card border-0" style="width: 18rem;">
+            <img src="/assets/img/<%= planet.img.url %>" class="card-img-top" alt="<%= planet.img.alt %>">
+            <div class="card-body bg-secondary text-white">
+                <h5 class="card-title"><%= planet.title %></h5>
+                <p class="card-text"><%= planet.subtitle %></p>
+                <a href="/<%=planet.id%>" class="btn btn-primary">En savoir plus</a>
+            </div>
+        </div>
+    <% }) %>
+</div>
 
-    <%- include('includes/_footer.ejs');%>
-    <%- include('includes/_script.ejs');%>
+<%- include('includes/_footer.ejs'); %>
+<%- include('includes/_script.ejs'); %>
 </body>
 </html>
