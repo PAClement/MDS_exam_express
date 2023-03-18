@@ -8,6 +8,7 @@ import chatRouter from "./routes/chat.js";
 import adminRouter from "./routes/admin.js";
 import session from "express-session";
 import actuRouter from "./routes/actus.js";
+import downloadRouter from "./routes/download.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -37,6 +38,7 @@ app
     .use(chatRouter(httpServer))
     .use(adminRouter)
     .use(actuRouter)
+    .use(downloadRouter)
 
     //404 route
     .get('*', function (req, res) {
